@@ -5,18 +5,19 @@ export class PicAPI {
   #ORIENTATION = 'horizontal';
   #SAFESEARCH = 'true';
   #PER_PAGE = 40;
-  #PAGE = 1;
+  PAGE = 1;
+  QUERY = '';
 
   getPic(query) {
     const url = this.#BASE_URL;
     const params = new URLSearchParams({
-      q: query,
+      q: this.QUERY,
       key: this.#API_KEY,
       image_type: this.#IMAGE_TYPE,
       orientation: this.#ORIENTATION,
       per_page: this.#PER_PAGE,
       safesearch: this.#SAFESEARCH,
-      page: this.#PAGE,
+      page: this.PAGE,
     });
     return fetch(`${url}?${params}`).then(res => res.json());
   }

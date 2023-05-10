@@ -11,17 +11,28 @@ const picApi = new PicAPI();
 const refs = {
   formElem: document.querySelector('#search-form'),
   picListElem: document.querySelector('.gallery'),
+  loadMoreBtn: document.querySelector('.load-more'),
 };
 
 refs.formElem.addEventListener('submit', onFormSubmit);
+refs.loadMoreBtn.addEventListener('click', onLoadBtnClick);
+
+function onLoadBtnClick(e) {
+  picApi.PAGE++;
+  picApi.getPic().then(data => {
+    renderPic(data.hits);
+    refs.loadMoreBtn.disabled = false;
+  });
+}
 
 function onFormSubmit(e) {
   e.preventDefault();
   const query = e.target.elements.searchQuery.value;
   refs.picListElem.innerHTML = '';
+  picApi.QUERY = query;
   picApi.getPic(query).then(data => {
-    console.log(data);
     renderPic(data.hits);
+    refs.loadMoreBtn.disabled = false;
   });
 }
 
