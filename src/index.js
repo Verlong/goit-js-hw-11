@@ -24,8 +24,8 @@ function onLoadBtnClick(e) {
     // refs.loadMoreBtn.disabled = false;
   });
   if (picApi.PAGE === picApi.TOTAL_PAGES) {
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
+    Notiflix.Notify.warning(
+      "We're sorry, but you've reached the end of search results."
     );
     refs.loadMoreBtn.disabled = true;
   }
@@ -39,8 +39,8 @@ function onFormSubmit(e) {
   picApi.QUERY = query;
   picApi.getPic().then(data => {
     if (data.hits.length === 0) {
-      Notiflix.Notify.warning(
-        "We're sorry, but you've reached the end of search results."
+      Notiflix.Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
       );
       return;
     }
