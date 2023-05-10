@@ -4,9 +4,10 @@ export class PicAPI {
   #IMAGE_TYPE = 'photo';
   #ORIENTATION = 'horizontal';
   #SAFESEARCH = 'true';
-  #PER_PAGE = 40;
+  #PER_PAGE = 4;
   PAGE = 1;
   QUERY = '';
+  TOTAL_PAGES = 1;
 
   getPic(query) {
     const url = this.#BASE_URL;
@@ -19,6 +20,11 @@ export class PicAPI {
       safesearch: this.#SAFESEARCH,
       page: this.PAGE,
     });
-    return fetch(`${url}?${params}`).then(res => res.json());
+    return fetch(`${url}?${params}`)
+      .then(res => res.json())
+      .then(data => {
+        this.TOTAL_PAGES = Math.ceil(data.totalHits / this.#PER_PAGE);
+        return data;
+      });
   }
 }

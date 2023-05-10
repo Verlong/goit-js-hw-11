@@ -21,16 +21,20 @@ function onLoadBtnClick(e) {
   picApi.PAGE++;
   picApi.getPic().then(data => {
     renderPic(data.hits);
-    refs.loadMoreBtn.disabled = false;
+    // refs.loadMoreBtn.disabled = false;
   });
+  if (picApi.PAGE === picApi.TOTAL_PAGES) {
+    refs.loadMoreBtn.disabled = true;
+  }
 }
 
 function onFormSubmit(e) {
   e.preventDefault();
   const query = e.target.elements.searchQuery.value;
   refs.picListElem.innerHTML = '';
+  picApi.PAGE = 1;
   picApi.QUERY = query;
-  picApi.getPic(query).then(data => {
+  picApi.getPic().then(data => {
     renderPic(data.hits);
     refs.loadMoreBtn.disabled = false;
   });

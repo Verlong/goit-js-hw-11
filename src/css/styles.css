@@ -5,8 +5,6 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 100vh;
-  padding: 0 40px;
 }
 
 /*  форма пошуку */
@@ -74,7 +72,7 @@ body {
 
 .load-more {
   padding: 10px 20px;
-  margin-left: 10px;
+  margin: 20px 10px;
   border: 2px solid transparent;
   border-radius: 30px;
   background-color: transparent;
@@ -156,4 +154,19 @@ body {
 .photo-card:hover {
   border-color: #01f7ff;
   box-shadow: 0px 3px 20px rgba(1, 255, 242, 0.712);
+}
+
+/* disabled */
+
+.load-more[disabled] {
+  /* border-color: transparent;
+  box-shadow: none;
+  color: transparent; */
+
+  display: none;
+}
+
+.load-more[disabled]::before {
+  opacity: 0;
+  animation: none;
 }
