@@ -7,7 +7,7 @@ import { PicAPI } from './getPic';
 // import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const picApi = new PicAPI();
-// picApi.getPic('ford');
+
 const refs = {
   formElem: document.querySelector('#search-form'),
   picListElem: document.querySelector('.gallery'),

@@ -4,7 +4,7 @@ export class PicAPI {
   #IMAGE_TYPE = 'photo';
   #ORIENTATION = 'horizontal';
   #SAFESEARCH = 'true';
-  #PER_PAGE = 4;
+  #PER_PAGE = 40;
   PAGE = 1;
   QUERY = '';
   TOTAL_PAGES = 1;
