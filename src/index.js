@@ -24,6 +24,9 @@ function onLoadBtnClick(e) {
     // refs.loadMoreBtn.disabled = false;
   });
   if (picApi.PAGE === picApi.TOTAL_PAGES) {
+    Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
     refs.loadMoreBtn.disabled = true;
   }
 }
@@ -35,7 +38,14 @@ function onFormSubmit(e) {
   picApi.PAGE = 1;
   picApi.QUERY = query;
   picApi.getPic().then(data => {
+    if (data.hits.length === 0) {
+      Notiflix.Notify.warning(
+        "We're sorry, but you've reached the end of search results."
+      );
+      return;
+    }
     renderPic(data.hits);
+    showTotalHits(data.totalHits);
     refs.loadMoreBtn.disabled = false;
   });
 }
@@ -68,125 +78,8 @@ function renderPic(hits) {
   const markup = markupHits(hits);
   refs.picListElem.insertAdjacentHTML('beforeend', markup);
 }
-//
-//
-//webformatURL - посилання на маленьке зображення для списку карток.
-// largeImageURL - посилання на велике зображення.
-// tags - рядок з описом зображення. Підійде для атрибуту alt.
-// likes - кількість лайків.
-// views - кількість переглядів.
-// comments - кількість коментарів.
-// downloads - кількість завантажень.
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-// const errorMsg = Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-
-// // ============================розмітка вставлена в контейнер=========================
-// const galleryContainer = document.querySelector(".gallery")
-// // const markupPhotoCard = `<div class="photo-card">
-// //   <img src="${}" alt="${}" loading="lazy" />
-// //   <div class="info">
-// //     <p class="info-item">
-// //       <b>Likes</b>
-// //     </p>
-// //     <p class="info-item">
-// //       <b>Views</b>
-// //     </p>
-// //     <p class="info-item">
-// //       <b>Comments</b>
-// //     </p>
-// //     <p class="info-item">
-// //       <b>Downloads</b>
-// //     </p>
-// //   </div>
-// // </div>`
-
-// // galleryContainer.insertAdjacentHTML("beforebegin", markupPhotoCard)
-
-// // // ============================ /розмітка вставлена в контейнер=========================
-
-// class UnsplashAPI {
-//   #BASE_URL = 'https://pixabay.com/api/';
-//   #API_KEY = '36186835-0f2957db708a682a7472f2654';
-//   #LIMIT = 40;
-//   #page = 1;
-//   #searchQuery;
-
-//   #searchParams = new URLSearchParams({
-//     per_page: 40,
-//     webformatURL: webformatURL, //посилання на маленьке зображення для списку карток.
-//     largeImageURL: largeImageURL, // посилання на велике зображення.
-//     tags: value, //рядок з описом зображення. Підійде для атрибуту alt.
-//     likes: value, //кількість лайків.
-//     views: value, //кількість переглядів.
-//     comments: value, //кількість коментарів.
-//     downloads: value, //кількість завантажень.,
-//   });
-
-//   constructor() {
-//     this.#page = 1;
-//     this.#searchQuery = '';
-//   }
-
-//   getImages() {}
-
-//   // updadePage() {}
-
-//   get page() {
-//     this.#page;
-//   }
-
-//   set page(newPage) {
-//     this.#page++;
-//   }
-
-//   set searchQuery(newQuery) {}
-//   get searchQuery() {}
-// }
-
-// const refs = {
-//   form: document.querySelector('.search-form'),
-//   list: document.querySelector('.js-gallery'),
-//   loadMoreBtn: document.querySelector('.js-load-more'),
-// };
-// const { form, list /*loadMoreBtn*/ } = refs;
-
-// const unsplashApi = new UnsplashAPI();
-
-// function handleSubmit(e) {
-//   e.preventDefault();
-//   const query = e.target.elements.searchQuery.value.trim();
-//   if (!searchQuery) return;
-// }
-
-// function handleClickLoadMore() {}
-
-// function createGalleryCards(images) {
-//   return images
-//     .map(
-//       ({ urls, alt_description }) => `<li class="gallery__item">
-//       <img src="${urls.small}" alt="${alt_description}" class="gallery-img">
-//   </li>`
-//     )
-//     .join('');
-// }
+function showTotalHits(totalHits) {
+  Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+}
+//
