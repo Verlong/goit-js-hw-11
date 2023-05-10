@@ -2,35 +2,34 @@
 body {
   background-color: #080e26;
   display: flex;
-  flex-direction: column; /* змінюємо напрямок осей на колонку */
-  justify-content: flex-start; /* вирівнюємо контент зверху */
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   height: 100vh;
-  margin: 60px; /* видаляємо зовнішній відступ */
+  padding: 0 40px;
 }
 
-/* Стилі для форми пошуку */
+/*  форма пошуку */
 .search-form {
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
   position: relative;
+  padding: 48px;
 }
 
-/* Стилі для інпута пошуку */
+/* інпут пошуку */
 .search-form input[type='text'] {
   padding: 12px;
   border: 2px solid transparent;
   border-radius: 30px;
   background-color: transparent;
-  color: #fff;
+  color: #01f7ff;
   font-size: 16px;
   outline: none;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
   transition: border-color 0.5s ease-out, box-shadow 0.5s ease-out;
 }
 
-/* Стилі для кнопки пошуку */
+/* кнопка пошуку */
 .search-form button[type='submit'] {
   padding: 10px 20px;
   margin-left: 10px;
@@ -45,7 +44,6 @@ body {
   position: relative;
 }
 
-/* Стилі для псевдоелементу ::before кнопки пошуку */
 .search-form button[type='submit']::before,
 .search-form input[type='text']::before {
   content: '';
@@ -56,32 +54,106 @@ body {
   bottom: -5px;
   border-radius: 30px;
   border: 2px solid #01f7ff;
-  opacity: 0; /* зробити псевдоелемент невидимим за замовчуванням */
+  opacity: 0;
   transition: opacity 0.5s ease-out;
 }
 
-/* Стилі для кнопки пошуку при наведенні */
+/* кнопка пошуку при наведенні */
 .search-form button[type='submit']:hover,
 .search-form input[type='text']:hover {
-  border-color: #01f7ff; /* змінити колір бордера при наведенні */
-  box-shadow: 0px 3px 20px rgba(1, 179, 255, 0.7); /* змінити тінь при наведенні */
+  border-color: #01f7ff;
+  box-shadow: 0px 3px 20px rgba(1, 255, 242, 0.712);
 }
 
-/* Стилі для псевдоелементу ::before кнопки пошуку при наведенні */
-.search-form button[type='submit']:hover::before,
-.search-form input[type='text']:hover::before {
-  opacity: 1; /* зробити псевдоелемент видимим при наведенні */
-  animation: glowing-border 1s ease-out infinite alternate; /* додати анімацію "свічення" */
+.gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
-/* анімація "свічення" */
-@keyframes glowing-border {
-  from {
-    box-shadow: 0 0 10px #01f7ff, 0 0 20px #01f7ff, 0 0 30px #01f7ff,
-      0 0 40px #01f7ff, 0 0 50px #01f7ff, 0 0 60px #01f7ff;
-  }
-  to {
-    box-shadow: 0 0 20px #01f7ff, 0 0 30px #01f7ff, 0 0 40px #01f7ff,
-      0 0 50px #01f7ff, 0 0 60px #01f7ff, 0 0 70px #01f7ff;
-  }
+.load-more {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.load-more:hover {
+  border-color: #01f7ff;
+  box-shadow: 0px 3px 20px rgba(1, 179, 255, 0.7);
+}
+
+.load-more:hover::before {
+  opacity: 1;
+  animation: glowing-border 1s ease-out infinite alternate;
+}
+
+.load-more {
+  margin-top: 20px;
+  align-self: center;
+}
+
+/*   photo card */
+
+.photo-card img {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.photo-card .info {
+  width: 360px;
+}
+
+.info {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.info p {
+  color: #fff;
+  text-align: center;
+}
+
+.photo-card {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  border-radius: 10px;
+
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+}
+
+.photo-card::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 30px;
+  border: 2px solid #01f7ff;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+.photo-card:hover {
+  border-color: #01f7ff;
+  box-shadow: 0px 3px 20px rgba(1, 255, 242, 0.712);
 }
