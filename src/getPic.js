@@ -28,10 +28,19 @@ export class PicAPI {
     const data = response.data;
 
     this.TOTAL_PAGES = Math.ceil(data.totalHits / this.#PER_PAGE);
+    this.nextPage();
     return data;
   }
 
   get PerPage() {
     return this.#PER_PAGE;
+  }
+
+  nextPage() {
+    this.PAGE++;
+  }
+
+  resetPage() {
+    this.PAGE = 1;
   }
 }

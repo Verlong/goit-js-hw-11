@@ -18,11 +18,11 @@ refs.formElem.addEventListener('submit', onFormSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadBtnClick);
 
 async function onLoadBtnClick(e) {
-  picApi.PAGE++;
+  // picApi.PAGE++;
   try {
     const data = await picApi.getPic();
     renderPic(data.hits);
-    if (picApi.PAGE === picApi.TOTAL_PAGES) {
+    if (picApi.PAGE >= picApi.TOTAL_PAGES) {
       Notiflix.Notify.warning(
         "We're sorry, but you've reached the end of search results."
       );
@@ -37,7 +37,8 @@ async function onFormSubmit(e) {
   e.preventDefault();
   const query = e.target.elements.searchQuery.value;
   refs.picListElem.innerHTML = '';
-  picApi.PAGE = 1;
+  // picApi.PAGE = 1;
+  picApi.resetPage();
   picApi.QUERY = query;
   try {
     const data = await picApi.getPic();
@@ -92,3 +93,6 @@ function renderPic(hits) {
 function showTotalHits(totalHits) {
   Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
 }
+
+// "Можна було іще методи зробити для зручності, щоб збільшувати і обнуляти сторінку
+// Не бачу сповіщення, що я в кінці списку"
