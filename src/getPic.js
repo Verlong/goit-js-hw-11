@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 // const axios = require('axios');
 
 export class PicAPI {
@@ -24,10 +24,14 @@ export class PicAPI {
       page: this.PAGE,
     });
 
-    const response = await fetch(`${url}?${params}`);
-    const data = await response.json();
+    const response = await axios.get(`${url}?${params}`);
+    const data = response.data;
 
     this.TOTAL_PAGES = Math.ceil(data.totalHits / this.#PER_PAGE);
     return data;
+  }
+
+  get PerPage() {
+    return this.#PER_PAGE;
   }
 }
