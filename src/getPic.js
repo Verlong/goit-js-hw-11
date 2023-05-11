@@ -1,3 +1,6 @@
+// import axios from 'axios';
+// const axios = require('axios');
+
 export class PicAPI {
   #BASE_URL = 'https://pixabay.com/api/';
   #API_KEY = '36186835-0f2957db708a682a7472f2654';
@@ -9,7 +12,7 @@ export class PicAPI {
   QUERY = '';
   TOTAL_PAGES = 1;
 
-  getPic(query) {
+  async getPic(query) {
     const url = this.#BASE_URL;
     const params = new URLSearchParams({
       q: this.QUERY,
@@ -20,11 +23,11 @@ export class PicAPI {
       safesearch: this.#SAFESEARCH,
       page: this.PAGE,
     });
-    return fetch(`${url}?${params}`)
-      .then(res => res.json())
-      .then(data => {
-        this.TOTAL_PAGES = Math.ceil(data.totalHits / this.#PER_PAGE);
-        return data;
-      });
+
+    const response = await fetch(`${url}?${params}`);
+    const data = await response.json();
+
+    this.TOTAL_PAGES = Math.ceil(data.totalHits / this.#PER_PAGE);
+    return data;
   }
 }
