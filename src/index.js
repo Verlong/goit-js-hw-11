@@ -40,6 +40,12 @@ async function onLoadBtnClick(e) {
 async function onFormSubmit(e) {
   e.preventDefault();
   const query = e.target.elements.searchQuery.value;
+
+  if (query.trim() === '') {
+    Notiflix.Notify.failure('Please enter a search query.');
+    return;
+  }
+
   refs.picListElem.innerHTML = '';
 
   picApi.resetPage();
