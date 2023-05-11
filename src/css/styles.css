@@ -1,4 +1,4 @@
-/* Загальні стилі для сторінки */
+/* styles for page */
 body {
   background-color: #080e26;
   display: flex;
@@ -7,14 +7,14 @@ body {
   align-items: center;
 }
 
-/*  форма пошуку */
+/*  form styles */
 .search-form {
   display: flex;
   position: relative;
   padding: 48px;
 }
 
-/* інпут пошуку */
+/* input styles*/
 .search-form input[type='text'] {
   padding: 12px;
   border: 2px solid transparent;
@@ -27,7 +27,7 @@ body {
   transition: border-color 0.5s ease-out, box-shadow 0.5s ease-out;
 }
 
-/* кнопка пошуку */
+/* button styles */
 .search-form button[type='submit'] {
   padding: 10px 20px;
   margin-left: 10px;
@@ -56,7 +56,6 @@ body {
   transition: opacity 0.5s ease-out;
 }
 
-/* кнопка пошуку при наведенні */
 .search-form button[type='submit']:hover,
 .search-form input[type='text']:hover {
   border-color: #01f7ff;
@@ -136,6 +135,7 @@ body {
   align-items: center;
   position: relative;
   justify-content: space-between;
+  text-decoration: none;
 }
 
 .photo-card::before {
@@ -159,10 +159,6 @@ body {
 /* disabled */
 
 .load-more[disabled] {
-  /* border-color: transparent;
-  box-shadow: none;
-  color: transparent; */
-
   display: none;
 }
 

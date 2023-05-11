@@ -1,11 +1,16 @@
 import Notiflix from 'notiflix';
 import { PicAPI } from './getPic';
-// import axios from 'axios';
-// Описаний в документації
-// import SimpleLightbox from 'simplelightbox';
-// Додатковий імпорт стилів
-// import 'simplelightbox/dist/simple-lightbox.min.css';
 
+// =====================================================Library SLB
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: '250',
+});
+
+// =====================================================Library SLB
 const picApi = new PicAPI();
 
 const refs = {
@@ -18,7 +23,6 @@ refs.formElem.addEventListener('submit', onFormSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadBtnClick);
 
 async function onLoadBtnClick(e) {
-  // picApi.PAGE++;
   try {
     const data = await picApi.getPic();
     renderPic(data.hits);
@@ -37,7 +41,7 @@ async function onFormSubmit(e) {
   e.preventDefault();
   const query = e.target.elements.searchQuery.value;
   refs.picListElem.innerHTML = '';
-  // picApi.PAGE = 1;
+
   picApi.resetPage();
   picApi.QUERY = query;
   try {
@@ -64,23 +68,25 @@ async function onFormSubmit(e) {
 function markupHits(hits) {
   return hits
     .map(element => {
-      return `<div class="photo-card">
-  <img src="${element.webformatURL}" alt="${element.tags}" loading="lazy" />
-  <div class="info">
-    <p class="info-item">
-      <b>Likes: ${element.likes}</b>
-    </p>
-    <p class="info-item">
-      <b>Views: ${element.views}</b>
-    </p>
-    <p class="info-item">
-      <b>Comments: ${element.comments}</b>
-    </p>
-    <p class="info-item">
-      <b>Downloads: ${element.downloads}</b>
-    </p>
-  </div>
-</div>`;
+      return `<a class="photo-card" href="${element.largeImageURL}">
+       
+          <img src="${element.webformatURL}" alt="${element.tags}" loading="lazy" />
+          <div class="info">
+            <p class="info-item">
+        <b>Likes: ${element.likes}</b>
+            </p>
+            <p class="info-item">
+        <b>Views: ${element.views}</b>
+            </p>
+            <p class="info-item">
+        <b>Comments: ${element.comments}</b>
+            </p>
+            <p class="info-item">
+        <b>Downloads: ${element.downloads}</b>
+            </p>
+          </div>
+       
+      </a>`;
     })
     .join('');
 }
@@ -88,11 +94,9 @@ function markupHits(hits) {
 function renderPic(hits) {
   const markup = markupHits(hits);
   refs.picListElem.insertAdjacentHTML('beforeend', markup);
+  lightbox.refresh();
 }
 
 function showTotalHits(totalHits) {
   Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
 }
-
-// "Можна було іще методи зробити для зручності, щоб збільшувати і обнуляти сторінку
-// Не бачу сповіщення, що я в кінці списку"
